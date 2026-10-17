@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rapid Nurse - Complete Website & Interactive Preview</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0fdfa',
+              100: '#ccfbf1',
+              500: '#14b8a6',
+              600: '#0d9488',
+              700: '#0f766e',
+              800: '#115e59',
+              900: '#134e4a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #0d9488;
+      border-radius: 4px;
+    }
+    .preview-bar {
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+    }
+  </style>
+</head>
+<body class="bg-slate-950 font-sans antialiased text-slate-800">
+
+  <!-- ========================================== -->
+  <!-- PREVIEW TAB SWITCHER (TOP FLOATING HEADER) -->
+  <!-- ========================================== -->
+  <div class="fixed top-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-800 text-white py-2.5 px-4 preview-bar">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      
+      <!-- Brand Title -->
+      <div class="flex items-center space-x-2">
+        <div class="bg-teal-500 text-slate-950 p-1.5 rounded-lg font-black text-xs">
+          LIVE
+        </div>
+        <span class="text-xs sm:text-sm font-bold tracking-tight">
+          Rapid Nurse Web App Preview <span class="text-slate-400 font-normal hidden sm:inline">(www.rapidnurse.in)</span>
+        </span>
+      </div>
+
+      <!-- Tab Buttons -->
+      <div class="flex items-center bg-slate-800 p-1 rounded-xl border border-slate-700 text-xs font-bold">
+        <button id="btnPatient" onclick="switchTab('patient')" class="px-3.5 py-1.5 rounded-lg transition-all duration-200 bg-teal-500 text-slate-950 shadow-sm flex items-center space-x-1.5">
+          <i data-lucide="user" class="w-3.5 h-3.5"></i>
+          <span>Patient Site (index.html)</span>
+        </button>
+        <button id="btnPartner" onclick="switchTab('partner')" class="px-3.5 py-1.5 rounded-lg transition-all duration-200 text-slate-300 hover:text-white flex items-center space-x-1.5">
+          <i data-lucide="briefcase" class="w-3.5 h-3.5"></i>
+          <span>Partner Portal (partner.html)</span>
+        </button>
+      </div>
+
+      <!-- Quick Contact -->
+      <div class="hidden lg:flex items-center space-x-3 text-xs text-slate-300 font-semibold">
+        <span class="text-teal-400">📞 +91 8796748806</span>
+        <span>• Gurugram, Haryana</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CONTAINER WITH TOP PADDING FOR SWITCHER BAR -->
+  <div class="pt-14">
+
+    <!-- ======================================================= -->
+    <!-- VIEW 1: PATIENT WEBSITE (index.html)                    -->
+    <!-- ======================================================= -->
+    <div id="viewPatient" class="bg-slate-50 min-h-screen">
+      
+      <!-- EMERGENCY HELPLINE BAR -->
+      <div class="bg-slate-900 text-slate-300 text-xs py-2 px-4 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+          <div class="flex items-center space-x-3">
+            <span class="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="text-teal-400 font-semibold">Live Nurse Dispatch Across Gurugram Sectors</span>
+            <span class="hidden md:inline text-slate-600">|</span>
+            <span class="hidden md:inline text-slate-400">Golf Course Rd • Sohna Rd • DLF • SPR • New Gurgaon</span>
+          </div>
+          <div class="flex items-center space-x-4 text-xs font-bold">
+            <a href="tel:+918796748806" class="hover:text-white transition flex items-center gap-1 text-slate-200">
+              <i data-lucide="phone" class="w-3.5 h-3.5 text-teal-400"></i>
+              <span>+91 8796748806</span>
+            </a>
+            <button onclick="switchTab('partner')" class="text-teal-300 hover:text-white transition flex items-center gap-1">
+              <i data-lucide="user-plus" class="w-3.5 h-3.5"></i>
+              <span>Partner Nurse Portal</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PATIENT HEADER -->
+      <header class="bg-white/95 backdrop-blur-md border-b border-slate-200 sticky top-14 z-40 shadow-2xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
+          
+          <a href="#" class="flex items-center space-x-3">
+            <div class="bg-brand-600 text-white p-2.5 rounded-2xl shadow-md">
+              <i data-lucide="cross" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <span class="text-2xl font-black tracking-tight text-slate-900 leading-none block">
+                RAPID<span class="text-brand-600">NURSE</span>
+              </span>
+              <span class="text-[10px] font-extrabold text-slate-500 tracking-widest uppercase mt-0.5 block">
+                In-Home Care • Gurugram
+              </span>
+            </div>
+          </a>
+
+          <nav class="hidden md:flex items-center space-x-8 font-semibold text-sm text-slate-600">
+            <a href="#patientBookingSection" class="hover:text-brand-600 transition">Book Calendar</a>
+            <a href="#servicesSection" class="hover:text-brand-600 transition">Services</a>
+            <a href="#pricingSection" class="hover:text-brand-600 transition">Pricing</a>
+            <a href="#coverageSection" class="hover:text-brand-600 transition">Sectors</a>
+            <button onclick="switchTab('partner')" class="text-emerald-700 bg-emerald-50 px-3.5 py-1.5 rounded-xl border border-emerald-200 hover:bg-emerald-100 transition font-bold flex items-center gap-1.5">
+              <i data-lucide="briefcase" class="w-4 h-4 text-emerald-600"></i>
+              <span>Gig Nurse Portal</span>
+            </button>
+          </nav>
+
+          <div class="flex items-center space-x-3">
+            <a href="https://wa.me/918796748806?text=Hi%20Rapid%20Nurse%2C%20I%20need%20nursing%20care%20at%20home%20in%20Gurugram." target="_blank" class="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition shadow-md flex items-center space-x-1.5">
+              <i data-lucide="message-circle" class="w-4 h-4"></i>
+              <span>WhatsApp Inquire</span>
+            </a>
+          </div>
+
+        </div>
+      </header>
+
+      <!-- PATIENT HERO WITH CALENDAR BOOKING -->
+      <section id="patientBookingSection" class="py-12 lg:py-16 bg-gradient-to-b from-teal-50/60 via-white to-slate-50 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="grid lg:grid-cols-12 gap-10 items-center">
+            
+            <!-- Hero Left Content -->
+            <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+              <div class="inline-flex items-center space-x-2 bg-teal-100/80 text-teal-900 border border-teal-200 px-3.5 py-1.5 rounded-full text-xs font-bold">
+                <i data-lucide="shield-check" class="w-4 h-4 text-teal-600"></i>
+                <span>Certified GNM & B.Sc Female & Male Nurses</span>
+              </div>
+
+              <h1 class="text-3xl sm:text-5xl font-black text-slate-900 leading-tight tracking-tight">
+                Hospital-Quality Nursing Care Delivered at Your Home in Gurugram
+              </h1>
+
+              <p class="text-slate-600 text-base leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                Pre-book routine procedure visits (IV drips, sterile dressing, catheterization) or arrange dedicated 12h/24h post-ICU shift care across all sectors of Gurugram.
+              </p>
+
+              <div class="grid grid-cols-3 gap-3 pt-2 text-xs font-bold text-slate-800">
+                <div class="bg-white p-3 rounded-2xl border border-slate-200/80 shadow-2xs">
+                  <i data-lucide="clock" class="w-5 h-5 text-teal-600 mb-1 mx-auto lg:mx-0"></i>
+                  <span>Time-Slotted Visit</span>
+                </div>
+                <div class="bg-white p-3 rounded-2xl border border-slate-200/80 shadow-2xs">
+                  <i data-lucide="user-check" class="w-5 h-5 text-teal-600 mb-1 mx-auto lg:mx-0"></i>
+                  <span>Verified Staff</span>
+                </div>
+                <div class="bg-white p-3 rounded-2xl border border-slate-200/80 shadow-2xs">
+                  <i data-lucide="receipt" class="w-5 h-5 text-teal-600 mb-1 mx-auto lg:mx-0"></i>
+                  <span>Fair Flat Rates</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Hero Right Calendar Booking Form -->
+            <div class="lg:col-span-5">
+              <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-200">
+                <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-100">
+                  <div>
+                    <h2 class="text-lg font-black text-slate-900">Book Nurse Visit</h2>
+                    <p class="text-xs text-slate-500">Pick date & time slot for doorstep dispatch</p>
+                  </div>
+                  <span class="bg-teal-50 text-teal-800 text-[11px] font-bold px-2.5 py-1 rounded-full border border-teal-100">
+                    Gurugram
+                  </span>
+                </div>
+
+                <form onsubmit="handlePatientBooking(event)" class="space-y-3.5">
+                  <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Service Type *</label>
+                    <select id="patientService" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-teal-500 outline-none">
+                      <option value="On-Demand Procedure Visit (₹1,000)">On-Demand Procedure Visit (₹1,000 / visit)</option>
+                      <option value="12-Hour Day/Night Shift Care (₹1,800/shift)">12-Hour Shift Care (₹1,800 / shift)</option>
+                      <option value="24-Hour Live-in Post-ICU Care (₹2,800/day)">24-Hour Live-in Care (₹2,800 / day)</option>
+                    </select>
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-3">
+                    <div>
+                      <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Select Date *</label>
+                      <input type="date" id="patientDate" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs sm:text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-teal-500 outline-none" />
+                    </div>
+                    <div>
+                      <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Time Slot *</label>
+                      <select id="patientSlot" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-2.5 text-xs font-semibold text-slate-800 focus:ring-2 focus:ring-teal-500 outline-none">
+                        <option value="Morning (8:00 AM - 11:00 AM)">Morning (8-11 AM)</option>
+                        <option value="Afternoon (12:00 PM - 3:00 PM)">Afternoon (12-3 PM)</option>
+                        <option value="Evening (4:00 PM - 7:00 PM)">Evening (4-7 PM)</option>
+                        <option value="12h Day Shift (8 AM - 8 PM)">12h Day (8 AM-8 PM)</option>
+                        <option value="12h Night Shift (8 PM - 8 AM)">12h Night (8 PM-8 AM)</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Patient Name *</label>
+                    <input type="text" id="patientName" placeholder="e.g. Mr. Sharma" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-medium text-slate-800 focus:ring-2 focus:ring-teal-500 outline-none" />
+                  </div>
+
+                  <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Locality / Sector in Gurugram *</label>
+                    <input type="text" id="patientLocation" placeholder="e.g. DLF Phase 5 / Sector 65" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-medium text-slate-800 focus:ring-2 focus:ring-teal-500 outline-none" />
+                  </div>
+
+                  <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-black py-3.5 rounded-xl shadow-md transition flex items-center justify-center space-x-2 text-sm mt-2">
+                    <i data-lucide="calendar-check" class="w-4 h-4"></i>
+                    <span>Submit Booking to WhatsApp</span>
+                  </button>
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- SERVICES OFFERED -->
+      <section id="servicesSection" class="py-16 bg-white border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center max-w-2xl mx-auto mb-12">
+            <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Clinical Services Delivered at Home</h2>
+            <p class="text-slate-600 text-sm mt-2">Certified procedures adhering to strict aseptic hospital protocols.</p>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="bg-slate-50 rounded-3xl p-6 sm:p-8 border border-slate-200 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <span class="bg-teal-100 text-teal-800 text-xs font-bold px-3 py-1 rounded-full">On-Demand Visit</span>
+                  <span class="text-lg font-black text-slate-900">₹1,000 / visit</span>
+                </div>
+                <h3 class="text-xl font-extrabold text-slate-900 mb-2">Procedure Visits</h3>
+                <p class="text-slate-600 text-xs sm:text-sm mb-4">Quick 30–60 minute visits for routine medical treatments.</p>
+                <ul class="space-y-2 text-xs sm:text-sm text-slate-700 font-medium mb-6">
+                  <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-teal-600 mr-2 shrink-0"></i>IV Fluids, Saline Drips & Prescribed Injections</li>
+                  <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-teal-600 mr-2 shrink-0"></i>Sterile Wound Care, Ulcers & Suture Removal</li>
+                  <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-teal-600 mr-2 shrink-0"></i>Foley Catheter Insertion & Maintenance</li>
+                  <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-teal-600 mr-2 shrink-0"></i>Ryle's Tube Placement & Airway Suctioning</li>
+                </ul>
+              </div>
+              <a href="#patientBookingSection" class="block w-full text-center bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl transition text-xs sm:text-sm">
+                Book Procedure Visit
+              </a>
+            </div>
+
+            <div class="bg-slate-900 text-white rounded-3xl p-6 sm:p-8 border border-slate-800 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <span class="bg-teal-500/20 text-teal-300 text-xs font-bold px-3 py-1 rounded-full border border-teal-500/30">Shift Care</span>
+                  <span class="text-lg font-black text-white">From ₹1,800 / shift</span>
+                </div>
+                <h3 class="text-xl font-extrabold text-white mb-2">12hr / 24hr Shift Care</h3>
+                <p class="text-slate-300 text-xs sm:text-sm mb-4">Continuous nursing for post-ICU, stroke, or elderly bedridden patients.</p>
+                <ul class="space-y-2 text-xs sm:text-sm text-slate-300 font-medium mb-6">
+                  <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-teal-400 mr-2 shrink-0"></i>Dedicated 12-Hour Day or Night Shift Supervision</li>
+                  <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-teal-400 mr-2 shrink-0"></i>24-Hour Live-in Continuous ICU Step-Down Care</li>
+                  <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-teal-400 mr-2 shrink-0"></i>Tracheostomy, BiPAP & Oxygen Support</li>
+                  <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-teal-400 mr-2 shrink-0"></i>Bedsore Prevention, Sponge Bath & Mobility Care</li>
+                </ul>
+              </div>
+              <a href="#patientBookingSection" class="block w-full text-center bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl transition text-xs sm:text-sm">
+                Reserve Shift Nurse
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TRANSPARENT PRICING TABLE -->
+      <section id="pricingSection" class="py-16 bg-slate-100 border-t border-slate-200">
+        <div class="max-w-4xl mx-auto px-4">
+          <div class="text-center mb-8">
+            <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Transparent Rate Card</h2>
+            <p class="text-xs sm:text-sm text-slate-500 mt-1">Standard rates across all sectors in Gurugram</p>
+          </div>
+
+          <div class="bg-white rounded-3xl shadow-xs border border-slate-200 overflow-hidden">
+            <table class="w-full text-left border-collapse text-xs sm:text-sm">
+              <thead>
+                <tr class="bg-slate-900 text-white font-bold">
+                  <th class="p-4">Service Category</th>
+                  <th class="p-4">Duration</th>
+                  <th class="p-4 text-right">Standard Rate</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 text-slate-700 font-medium">
+                <tr>
+                  <td class="p-4 font-semibold text-slate-900">On-Demand Procedure Visit</td>
+                  <td class="p-4 text-slate-500">30 – 60 Mins</td>
+                  <td class="p-4 text-right font-bold text-teal-700">₹1,000</td>
+                </tr>
+                <tr>
+                  <td class="p-4 font-semibold text-slate-900">12-Hour Day / Night Shift Care</td>
+                  <td class="p-4 text-slate-500">12 Hours</td>
+                  <td class="p-4 text-right font-bold text-teal-700">₹1,800</td>
+                </tr>
+                <tr>
+                  <td class="p-4 font-semibold text-slate-900">24-Hour Live-in Post-ICU Care</td>
+                  <td class="p-4 text-slate-500">24 Hours</td>
+                  <td class="p-4 text-right font-bold text-teal-700">₹2,800</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- COVERAGE SECTORS -->
+      <section id="coverageSection" class="py-12 bg-white border-t border-slate-200 text-center">
+        <div class="max-w-7xl mx-auto px-4">
+          <h3 class="text-xs font-extrabold uppercase tracking-widest text-slate-400 mb-3">Doorstep Service Belts in Gurugram</h3>
+          <div class="flex flex-wrap justify-center gap-2 text-xs font-semibold text-slate-700 max-w-3xl mx-auto">
+            <span class="bg-slate-100 px-3.5 py-1.5 rounded-xl border border-slate-200">DLF Phase 1–5</span>
+            <span class="bg-slate-100 px-3.5 py-1.5 rounded-xl border border-slate-200">Golf Course Road & Extension</span>
+            <span class="bg-slate-100 px-3.5 py-1.5 rounded-xl border border-slate-200">Sohna Road & SPR</span>
+            <span class="bg-slate-100 px-3.5 py-1.5 rounded-xl border border-slate-200">Nirvana Country</span>
+            <span class="bg-slate-100 px-3.5 py-1.5 rounded-xl border border-slate-200">Sushant Lok & Cyber City</span>
+            <span class="bg-slate-100 px-3.5 py-1.5 rounded-xl border border-slate-200">New Gurgaon & Dwarka Expressway</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- PATIENT FOOTER -->
+      <footer class="bg-slate-900 text-slate-400 py-10 border-t border-slate-800 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+          <div>
+            <span class="text-base font-black text-white">Rapid<span class="text-teal-400">Nurse</span></span>
+            <span class="text-slate-500 ml-2">| www.rapidnurse.in</span>
+          </div>
+          <div class="text-slate-300 font-semibold">
+            Contact: +91 8796748806 • Gurugram, Haryana
+          </div>
+          <button onclick="switchTab('partner')" class="text-teal-400 hover:underline font-bold">
+            Nurse Partner Portal →
+          </button>
+        </div>
+      </footer>
+
+    </div>
+
+
+    <!-- ======================================================= -->
+    <!-- VIEW 2: PARTNER NURSE PORTAL (partner.html)             -->
+    <!-- ======================================================= -->
+    <div id="viewPartner" class="bg-slate-950 text-slate-100 min-h-screen hidden">
+      
+      <!-- PARTNER HEADER -->
+      <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur-md sticky top-14 z-40">
+        <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+          
+          <a href="#" class="flex items-center space-x-3">
+            <div class="bg-teal-600 text-white p-2.5 rounded-2xl shadow-md">
+              <i data-lucide="cross" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <span class="text-2xl font-black tracking-tight text-white">Rapid<span class="text-teal-400">Nurse</span></span>
+              <span class="block text-[10px] font-bold uppercase tracking-widest text-teal-400">Partner Portal</span>
+            </div>
+          </a>
+
+          <button onclick="switchTab('patient')" class="text-xs sm:text-sm font-bold text-slate-400 hover:text-white transition flex items-center gap-1.5">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+            <span>Back to Patient Site</span>
+          </button>
+
+        </div>
+      </header>
+
+      <!-- PARTNER HERO & APPLICATION FORM -->
+      <section class="py-12 lg:py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="grid lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Partner Left Value Proposition -->
+            <div class="lg:col-span-6 space-y-6">
+              <div class="inline-flex items-center space-x-2 bg-teal-500/10 text-teal-400 border border-teal-500/20 text-xs font-bold px-3.5 py-1.5 rounded-full">
+                <i data-lucide="badge-check" class="w-4 h-4"></i>
+                <span>For GNM & B.Sc Registered Nurses in Gurugram</span>
+              </div>
+
+              <h1 class="text-3xl sm:text-5xl font-black text-white leading-tight tracking-tight">
+                Earn More with Flexible In-Home Nursing Shifts in Gurugram
+              </h1>
+
+              <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
+                Join Gurugram's premier home healthcare network. Take on short procedure visits during off-hours or accept high-paying 12h/24h post-ICU shift care near your locality.
+              </p>
+
+              <div class="space-y-4 pt-2">
+                <div class="flex items-start space-x-3">
+                  <div class="bg-teal-500/20 p-2.5 rounded-xl text-teal-400 mt-0.5">
+                    <i data-lucide="wallet" class="w-5 h-5"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-white text-sm">₹35,000 – ₹55,000+ Monthly Earnings</h4>
+                    <p class="text-xs text-slate-400 mt-0.5">Transparent per-visit & weekly direct bank payouts.</p>
+                  </div>
+                </div>
+
+                <div class="flex items-start space-x-3">
+                  <div class="bg-teal-500/20 p-2.5 rounded-xl text-teal-400 mt-0.5">
+                    <i data-lucide="map-pin" class="w-5 h-5"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-white text-sm">Local Sector Assignments</h4>
+                    <p class="text-xs text-slate-400 mt-0.5">Work within 2–5 km of your residency (DLF, Sohna Rd, Golf Course Rd, New Gurgaon).</p>
+                  </div>
+                </div>
+
+                <div class="flex items-start space-x-3">
+                  <div class="bg-teal-500/20 p-2.5 rounded-xl text-teal-400 mt-0.5">
+                    <i data-lucide="sliders" class="w-5 h-5"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-white text-sm">Complete Schedule Control</h4>
+                    <p class="text-xs text-slate-400 mt-0.5">Choose short procedure visits or dedicated 12h/24h shifts on your own terms.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Partner Right Application Form -->
+            <div class="lg:col-span-6">
+              <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl">
+                <div class="border-b border-slate-800 pb-4 mb-6">
+                  <h2 class="text-xl font-bold text-white">Apply as a Partner Nurse</h2>
+                  <p class="text-xs text-slate-400 mt-1">Submit your details for verification and onboarding.</p>
+                </div>
+
+                <form onsubmit="handlePartnerApplication(event)" class="space-y-4">
+                  <div>
+                    <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">Full Name *</label>
+                    <input type="text" id="partnerName" placeholder="e.g. Sister Sunita Sharma" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-medium text-white focus:ring-2 focus:ring-teal-500 outline-none" />
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-3">
+                    <div>
+                      <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">Qualification *</label>
+                      <select id="partnerQual" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-xs sm:text-sm font-medium text-white focus:ring-2 focus:ring-teal-500 outline-none">
+                        <option value="GNM Nursing">GNM Nursing</option>
+                        <option value="B.Sc Nursing">B.Sc Nursing</option>
+                        <option value="ANM Nursing">ANM Nursing</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">Experience *</label>
+                      <select id="partnerExp" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-xs sm:text-sm font-medium text-white focus:ring-2 focus:ring-teal-500 outline-none">
+                        <option value="1 - 3 Years">1 - 3 Years</option>
+                        <option value="3 - 5 Years">3 - 5 Years</option>
+                        <option value="5+ Years">5+ Years</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">Gurugram Locality *</label>
+                    <input type="text" id="partnerLocality" placeholder="e.g. Jharsa / Sector 56 / Badshahpur" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-medium text-white focus:ring-2 focus:ring-teal-500 outline-none" />
+                  </div>
+
+                  <div>
+                    <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">Preferred Work Mode *</label>
+                    <select id="partnerWorkType" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-medium text-white focus:ring-2 focus:ring-teal-500 outline-none">
+                      <option value="Both Short Visits & Shifts">Both Short Visits & Shift Care</option>
+                      <option value="Short Procedure Visits Only">Short Procedure Visits Only</option>
+                      <option value="12h / 24h Shift Care Only">12h / 24h Shift Care Only</option>
+                    </select>
+                  </div>
+
+                  <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold py-3.5 rounded-xl shadow-lg transition flex items-center justify-center space-x-2 text-sm mt-2">
+                    <i data-lucide="send" class="w-4 h-4"></i>
+                    <span>Submit Application via WhatsApp</span>
+                  </button>
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- PARTNER FOOTER -->
+      <footer class="bg-slate-900 text-slate-500 py-8 border-t border-slate-800 text-xs text-center">
+        <div class="max-w-7xl mx-auto px-4">
+          © 2026 Rapid Nurse Partner Network (www.rapidnurse.in). All rights reserved. Gurugram, Haryana.
+        </div>
+      </footer>
+
+    </div>
+
+  </div>
+
+  <!-- FLOATING WHATSAPP BUTTON -->
+  <a href="https://wa.me/918796748806?text=Hi%20Rapid%20Nurse%20Team%2C%20I%20would%20like%20to%20inquire%20about%20nursing%20care." target="_blank" class="fixed bottom-6 right-6 z-40 bg-emerald-500 hover:bg-emerald-400 text-white p-4 rounded-full shadow-2xl flex items-center justify-center transition transform hover:scale-110">
+    <i data-lucide="message-circle" class="w-7 h-7"></i>
+  </a>
+
+  <!-- SCRIPT LOGIC -->
+  <script>
+    // Initialize Icons
+    lucide.createIcons();
+
+    // Default Minimum Date for Booking Calendar
+    const dateInput = document.getElementById('patientDate');
+    if (dateInput) {
+      dateInput.min = new Date().toISOString().split('T')[0];
+    }
+
+    // Tab Switcher Logic
+    function switchTab(tab) {
+      const viewPatient = document.getElementById('viewPatient');
+      const viewPartner = document.getElementById('viewPartner');
+      const btnPatient = document.getElementById('btnPatient');
+      const btnPartner = document.getElementById('btnPartner');
+
+      if (tab === 'patient') {
+        viewPatient.classList.remove('hidden');
+        viewPartner.classList.add('hidden');
+        
+        btnPatient.className = "px-3.5 py-1.5 rounded-lg transition-all duration-200 bg-teal-500 text-slate-950 shadow-sm flex items-center space-x-1.5";
+        btnPartner.className = "px-3.5 py-1.5 rounded-lg transition-all duration-200 text-slate-300 hover:text-white flex items-center space-x-1.5";
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        viewPatient.classList.add('hidden');
+        viewPartner.classList.remove('hidden');
+        
+        btnPartner.className = "px-3.5 py-1.5 rounded-lg transition-all duration-200 bg-teal-500 text-slate-950 shadow-sm flex items-center space-x-1.5";
+        btnPatient.className = "px-3.5 py-1.5 rounded-lg transition-all duration-200 text-slate-300 hover:text-white flex items-center space-x-1.5";
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    // Patient Form Handler (Form -> WhatsApp URL)
+    function handlePatientBooking(e) {
+      e.preventDefault();
+      const service = document.getElementById('patientService').value;
+      const date = document.getElementById('patientDate').value;
+      const slot = document.getElementById('patientSlot').value;
+      const name = document.getElementById('patientName').value;
+      const location = document.getElementById('patientLocation').value;
+
+      const message = `*PATIENT NURSE BOOKING REQUEST*%0A%0A` +
+        `👤 *Name:* ${encodeURIComponent(name)}%0A` +
+        `🩺 *Service:* ${encodeURIComponent(service)}%0A` +
+        `📅 *Requested Date:* ${encodeURIComponent(date)}%0A` +
+        `⏰ *Time Slot:* ${encodeURIComponent(slot)}%0A` +
+        `📍 *Location:* ${encodeURIComponent(location)}, Gurugram%0A%0A` +
+        `Hi Rapid Nurse, please confirm nurse availability and dispatch timing.`;
+
+      window.open(`https://wa.me/918796748806?text=${message}`, '_blank');
+    }
+
+    // Partner Form Handler (Form -> WhatsApp URL)
+    function handlePartnerApplication(e) {
+      e.preventDefault();
+      const name = document.getElementById('partnerName').value;
+      const qual = document.getElementById('partnerQual').value;
+      const exp = document.getElementById('partnerExp').value;
+      const locality = document.getElementById('partnerLocality').value;
+      const workType = document.getElementById('partnerWorkType').value;
+
+      const message = `*PARTNER NURSE APPLICATION*%0A%0A` +
+        `👩‍⚕️ *Full Name:* ${encodeURIComponent(name)}%0A` +
+        `🎓 *Qualification:* ${encodeURIComponent(qual)}%0A` +
+        `⏳ *Experience:* ${encodeURIComponent(exp)}%0A` +
+        `📍 *Gurugram Locality:* ${encodeURIComponent(locality)}%0A` +
+        `💼 *Preferred Work:* ${encodeURIComponent(workType)}%0A%0A` +
+        `Hi Rapid Nurse Onboarding Team, I would like to join as a Gig Partner Nurse.`;
+
+      window.open(`https://wa.me/918796748806?text=${message}`, '_blank');
+    }
+  </script>
+</body>
+</html>
+```
+
+### Features included in the Interactive Preview:
+1. **Interactive Top Switcher Bar:** Toggle instantly between `index.html` (Patient Site) and `partner.html` (Partner Nurse Portal) without leaving the preview window.
+2. **Interactive Calendar Booking Form (`index.html`):** Allows selecting service tiers, picking dates, choosing time slots (Morning, Afternoon, Evening, 12h Day, 12h Night), and sending a structured WhatsApp dispatch text.
+3. **Dedicated Gig Partner Portal (`partner.html`):** Darker theme tailored for GNM/B.Sc nurses in Gurugram, highlighting value props (Earn ₹35k–₹55k/mo, work near home) and a direct WhatsApp onboarding form.
